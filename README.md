@@ -51,7 +51,7 @@ Demo
 
 Vagrantで仮想マシンと起動し，デモ用シェル(gist/demo.sh)を実行することで，以下のexcelファイル(gist/test_data/directory_template.xlsx)をテンプレートにして環境定義書が自動生成される．
 
-![simple_demo_template](https://github.com/ynaka81/dockerEE/wiki/images/simple_demo_template.png)
+![simple_demo_template](https://github.com/ynaka81/code2excel/wiki/simple_demo_template.png)
 
     $ cd gist
     $ vagrant up
@@ -74,4 +74,4 @@ Vagrantで仮想マシンと起動し，デモ用シェル(gist/demo.sh)を実�
     $ ls output
     directory.xlsx  directory.yml
 
-![simple_demo_result](https://github.com/ynaka81/dockerEE/wiki/images/simple_demo_result.png)
+![simple_demo_result](https://github.com/ynaka81/code2excel/wiki/images/simple_demo_result.png)
