@@ -1,0 +1,20 @@
+---
+- hosts: node1
+  sudo: yes
+  remote_user: vagrant
+  tasks:
+          - name: create data root directory
+            file: path=/data state=directory owner=vagrant group=vagrant mode=0755
+
+          - name: create data sirectory for node1
+            file: path=/data/data1 state=directory owner=vagrant group=vagrant mode=0700
+
+- hosts: node2
+  sudo: yes
+  remote_user: vagrant
+  tasks:
+          - name: create data root directory
+            file: path=/data state=directory owner=vagrant group=vagrant mode=0755
+
+          - name: create data directory for node2
+            file: path=/data/data2 state=directory owner=vagrant group=vagrant mode=0750

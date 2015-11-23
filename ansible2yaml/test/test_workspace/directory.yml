@@ -1,0 +1,39 @@
+---
+- hosts: node1
+  sudo: yes
+  remote_user: vagrant
+  tasks:
+          - name: create a directory
+            file: path=/data state=directory owner=vagrant group=vagrant mode=0755
+            tags:
+                    - testOneDir
+                    - testManyDir
+                    - testTwoHosts
+
+          - name: create a directory for testManyDir and testTwoHosts
+            file: path=/data/data1 state=directory owner=vagrant group=vagrant mode=0700
+            tags:
+                    - testManyDir
+                    - testTwoHosts
+
+          - name: create many directory for testManyDir
+            file: path=/data/{{ item }} state=directory owner=vagrant group=vagrant mode=0750
+            with_items:
+                    - data2
+                    - data3
+            tags:
+                    - testManyDir
+
+- hosts: node2
+  sudo: yes
+  remote_user: vagrant
+  tasks:
+          - name: create a directory for testTwoHosts
+            file: path=/data state=directory owner=vagrant group=vagrant mode=0755
+            tags:
+                    - testTwoHosts
+
+          - name: create many directory for testTwoHosts
+            file: path=/data/data2 state=directory owner=vagrant group=vagrant mode=0750
+            tags:
+                    - testTwoHosts

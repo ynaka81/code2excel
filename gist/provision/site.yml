@@ -1,0 +1,34 @@
+---
+- hosts: all
+  sudo: yes
+  remote_user: vagrant
+  roles:
+          - { role: bobbyrenwick.pip }
+  vars:
+          hosts:
+                  - host: node1
+                    address: 192.168.33.10
+                  - host: node2
+                    address: 192.168.33.11
+  tasks:
+          - name: install precondition packages
+            yum: name={{ item }} state=latest
+            with_items:
+                    - gcc
+                    - python-devel
+
+          - name: install ansible
+            yum: name={{ item }} state=latest
+            with_items:
+                    - epel-release
+                    - ansible
+
+          - name: install python packages
+            pip: name={{ item }} state=latest
+            with_items:
+                    - PyYaml
+                    - openpyxl
+
+          - name: Build hosts file
+            lineinfile: dest=/etc/hosts regexp='.*{{ item.host }}$' line="{{ item.address }} {{ item.host }}" state=present
+            with_items: hosts

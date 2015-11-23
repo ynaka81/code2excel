@@ -1,0 +1,9 @@
+/data:
+  attirbutes: {group: vagrant, mode: '0755', owner: vagrant, path: /data}
+  values: {node1: true, node2: true}
+/data/data1:
+  attirbutes: {group: vagrant, mode: '0700', owner: vagrant, path: /data/data1}
+  values: {node1: true}
+/data/data2:
+  attirbutes: {group: vagrant, mode: '0750', owner: vagrant, path: /data/data2}
+  values: {node2: true}
