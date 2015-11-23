@@ -3,6 +3,8 @@ code2excel
 
 インフラコードで環境を構築すると同時に環境定義書を作成するツール．
 
+![code2excel](https://github.com/ynaka81/code2excel/wiki/images/code2excel.png)
+
 Description
 -----------
 環境と環境定義書が乖離することはしばしばある．
