@@ -1,32 +1,32 @@
 code2excel
 ========
 
-$B%$%s%U%i%3!<%I$G4D6-$r9=C[$9$k$HF1;~$K4D6-Dj5A=q$r:n@.$9$k%D!<%k!%(B
+インフラコードで環境を構築すると同時に環境定義書を作成するツール．
 
 Description
 -----------
-$B4D6-$H4D6-Dj5A=q$,P*N%$9$k$3$H$O$7$P$7$P$"$k!%(B
+環境と環境定義書が乖離することはしばしばある．
 
-puppet$B!$(Bchef$B!$(Bansible$BEy$N%D!<%k$NMxMQ$K$h$C$F4D6-$H@_7W$H$NP*N%$O@8$8$K$/$/$J$C$F$-$F$$$k!%(B
-$B$7$+$7!$%3!<%I$@$1$G$O%3%_%e%K%1!<%7%g%s$K;Y>c$r$-$?$9>l9g$b$"$k!%(B
-$B$d$O$j!$$*5RMM$G$"$C$?$j!$%^%M!<%8%c!<AX$H$N%3%_%e%K%1!<%7%g%s$K$O8E$-NI$-4D6-Dj5A=q$,9%$^$l$k>l9g$,B?$$!%(B
+puppet，chef，ansible等のツールの利用によって環境と設計との乖離は生じにくくなってきている．
+しかし，コードだけではコミュニケーションに支障をきたす場合もある．
+やはり，お客様であったり，マネージャー層とのコミュニケーションには古き良き環境定義書が好まれる場合が多い．
 
-$B$=$s$JM}M3$+$i%$%s%U%i%3!<%I$K$h$C$F!$(B
-* $B4D6-(B
-* $B4D6-Dj5A=q(B
+そんな理由からインフラコードによって，
+* 環境
+* 環境定義書
 
-$B$rF1;~$KJQ99$9$k%D!<%k$r:n@.$7$?!%(B
+を同時に変更するツールを作成した．
 
 Design Priciples
 ----------------
-* **$B%I%-%e%a%s%H$O%3!<%I$NI{;:J*(B**  
-    $B%$%s%U%i%3!<%I$r@5$H$7$F!$%3!<%I$+$i%I%-%e%a%s%H$r<+F0@8@.$9$k!%(B
-* **$BJQ49$N40A4@-(B**  
-    $B%I%-%e%a%s%H@8@.$+$i?M<j$N:n6H$rGS=|$9$k!%(B
+* **ドキュメントはコードの副産物**  
+    インフラコードを正として，コードからドキュメントを自動生成する．
+* **変換の完全性**  
+    ドキュメント生成から人手の作業を排除する．
 
 Demo
 ----
-$B0J2<$N(Bansible$B$N%3!<%I(B(gist/test_data/demo.yml)$B$+$i4D6-Dj5A=q$r<+F0@8@.$9$k%G%b$G$"$k!%(B
+以下のansibleのコード(gist/test_data/demo.yml)から環境定義書を自動生成するデモである．
 
     ---
     - hosts: node1
@@ -49,7 +49,7 @@ Demo
               - name: create data directory for node2
                 file: path=/data/data2 state=directory owner=vagrant group=vagrant mode=0750
 
-Vagrant$B$G2>A[%^%7%s$H5/F0$7!$%G%bMQ%7%'%k(B(gist/demo.sh)$B$r<B9T$9$k$3$H$G!$0J2<$N(Bexcel$B%U%!%$%k(B(gist/test_data/directory_template.xlsx)$B$r%F%s%W%l!<%H$K$7$F4D6-Dj5A=q$,<+F0@8@.$5$l$k!%(B
+Vagrantで仮想マシンと起動し，デモ用シェル(gist/demo.sh)を実行することで，以下のexcelファイル(gist/test_data/directory_template.xlsx)をテンプレートにして環境定義書が自動生成される．
 
 ![simple_demo_template](https://github.com/ynaka81/dockerEE/wiki/images/simple_demo_template.png)
 
@@ -59,7 +59,7 @@ Vagrant$B$G2>A[%^%7%s$H5/F0$7!$%G%bMQ%7%'%k(B(gist/demo.sh)$B$r<B9T$9$k$3$H$G
     Bringing machine 'node1' up with 'virtualbox' provider...
     Bringing machine 'node2' up with 'virtualbox' provider...
     ==> master: Importing base box 'opscode-centos-7.1'...
-                           ($B>JN,(B)
+                           (省略)
     $ vagrant ssh master
     [vagrant@master ~]$ cd /vagrant/gist
     [vagrant@master gist]$ ./demo.sh
@@ -68,8 +68,8 @@ Vagrant$B$G2>A[%^%7%s$H5/F0$7!$%G%bMQ%7%'%k(B(gist/demo.sh)$B$r<B9T$9$k$3$H$G
     
     GATHERING FACTS *************************************************************** 
     ok: [node1]
-                           ($B>JN,(B)
-    [vagrant@master gist]$ $B%m%0%"%&%H(B
+                           (省略)
+    [vagrant@master gist]$ ログアウト
     Connection to 127.0.0.1 closed.
     $ ls output
     directory.xlsx  directory.yml
